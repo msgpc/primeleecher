@@ -4,7 +4,7 @@ from subprocess import run as srun, check_output
 from psutil import disk_usage, cpu_percent, swap_memory, cpu_count, virtual_memory, net_io_counters, boot_time
 from time import time
 from sys import executable
-from telegram import InlineKeyboardMarkup
+from telegram import ParseMode, InlineKeyboardMarkup
 from telegram.ext import CommandHandler
 
 from bot import bot, dispatcher, updater, botStartTime, IGNORE_PENDING_REQUESTS, LOGGER, Interval, INCOMPLETE_TASK_NOTIFIER, DB_URI, alive, app, main_loop
@@ -75,7 +75,9 @@ Type /{BotCommands.HelpCommand} to get a list of available commands
 '''
         sendMarkup(start_string, context.bot, update.message, reply_markup)
     else:
-        sendMarkup(𝗛𝗲𝘆 👋, 𝗜 𝗔𝗺 𝗣𝗿𝗶𝗺𝗲 𝗫 𝗟𝗲𝗲𝗰𝗵𝗲𝗿.', context.bot, update.message, reply_markup)
+        msg1 = f'<b>𝗛𝗲𝘆👋,\n\n𝗧𝗵𝗮𝗻𝗸 𝗬𝗼𝘂 𝗙𝗼𝗿 𝗦𝘂𝗯𝘀𝗰𝗿𝗶𝗯𝗶𝗻𝗴 𝗠𝗲.</b>'
+        update.effective_message.reply_photo(IMAGE_URL, msg1, parse_mode=ParseMode.HTML, reply_markup=reply_markup)
+
 
 def restart(update, context):
     restart_message = sendMessage("Restarting...", context.bot, update.message)
