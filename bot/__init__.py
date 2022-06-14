@@ -430,6 +430,12 @@ try:
 except:
     AS_DOCUMENT = False
 try:
+    IMAGE_URL = getConfig('IMAGE_URL')
+    if len(IMAGE_URL) == 0:
+        IMAGE_URL = 'https://telegra.ph/file/4451c3320d86e1a72bc50.jpg'
+except KeyError:
+    IMAGE_URL = 'https://telegra.ph/file/4451c3320d86e1a72bc50.jpg'
+try:
     EQUAL_SPLITS = getConfig('EQUAL_SPLITS')
     EQUAL_SPLITS = EQUAL_SPLITS.lower() == 'true'
 except:
