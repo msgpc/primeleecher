@@ -202,39 +202,11 @@ class MirrorListener:
             DbManger().rm_complete_task(self.message.link)
         msg = f"<b>Name: </b><code>{escape(name)}</code>\n\n<b>Size: </b>{size}"
         if self.isLeech:
-            try:
-                source_link = message_args[1]
-                if is_magnet(source_link):
-                    link = telegraph.create_page(
-                        title='Helios-Mirror Source Link',
-                        content=source_link,
-                    )["path"]
-                    buttons.buildbutton(f"🔗 Source Link", f"https://telegra.ph/{link}")
-                else:
-                    buttons.buildbutton(f"🔗 Source Link", source_link)
-            except Exception as e:
-                LOGGER.warning(e)
-                pass
-                if reply_to is not None:
-                    try:
-                        reply_text = reply_to.text
-                        if is_url(reply_text):
-                            source_link = reply_text.strip()
-                            if is_magnet(source_link):
-                                link = telegraph.create_page(
-                                    title='Helios-Mirror Source Link',
-                                    content=source_link,
-                                )["path"]
-                                buttons.buildbutton(f"🔗 Source Link", f"https://telegra.ph/{link}")
-                            else:
-                                buttons.buildbutton(f"🔗 Source Link", source_link)
-                    except Exception as e:
-                        LOGGER.warning(e)
-                        pass
             msg += f'\n<b>Total Files: </b>{folders}'
             if typ != 0:
                 msg += f'\n<b>Corrupted Files: </b>{typ}'
-            msg += f'\n<b>cc: </b>{self.tag}\n\n'
+            msg += f'\n<b>Req By: </b>{self.tag}\n\n'
+            msg += f'\n<b>I have send files in PM.</b>'
             if not files:
                 sendMessage(msg, self.bot, self.message)
             else:
@@ -242,11 +214,11 @@ class MirrorListener:
                 for index, (link, name) in enumerate(files.items(), start=1):
                     fmsg += f"{index}. <a href='{link}'>{name}</a>\n"
                     if len(fmsg.encode() + msg.encode()) > 4000:
-                        sendMarkup(msg + fmsg, self.bot, self.message, InlineKeyboardMarkup(buttons.build_menu(2)))
+                        sendMarkup(msg, self.bot, self.message, InlineKeyboardMarkup(buttons.build_menu(2)))
                         sleep(1)
                         fmsg = ''
                 if fmsg != '':
-                    sendMarkup(msg + fmsg, self.bot, self.message, InlineKeyboardMarkup(buttons.build_menu(2)))
+                    sendMarkup(msg, self.bot, self.message, InlineKeyboardMarkup(buttons.build_menu(2)))
         else:
             msg += f'\n\n<b>Type: </b>{typ}'
             if ospath.isdir(f'{DOWNLOAD_DIR}{self.uid}/{name}'):
