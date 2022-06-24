@@ -200,13 +200,13 @@ class MirrorListener:
         reply_to = self.message.reply_to_message
         if not self.isPrivate and INCOMPLETE_TASK_NOTIFIER and DB_URI is not None:
             DbManger().rm_complete_task(self.message.link)
-        msg = f"𝗡𝗮𝗺𝗲: <code>{escape(name)}</code>\n\n𝗦𝗶𝘇𝗲: {size}"
+        msg = f"<b>Name: </b><code>{escape(name)}</code>\n\n<b>Size: </b>{size}"
         if self.isLeech:
-            msg += f'\n𝗧𝗼𝘁𝗮𝗹 𝗙𝗶𝗹𝗲𝘀: {folders}'
+            msg += f'\n<b>Total Files: </b>{folders}'
             if typ != 0:
-                msg += f'\n𝗖𝗼𝗿𝗿𝘂𝗽𝘁𝗲𝗱 𝗙𝗶𝗹𝗲𝘀: {typ}'
-            msg += f'\n𝗥𝗲𝗾 𝗕𝘆: {self.tag}\n'
-            msg += f'\n𝗜 𝗛𝗮𝘃𝗲 𝗦𝗲𝗻𝗱 𝗟𝗶𝗻𝗸𝘀 𝗶𝗻 𝗣𝗠 😇'
+                msg += f'\n<b>Corrupted Files: </b>{typ}'
+            msg += f'\n<b>Req By:</b> {self.tag}\n'
+            msg += f'\n<b>I have send files in PM.</b>'
             if not files:
                 sendMessage(msg, self.bot, self.message)
             else:
